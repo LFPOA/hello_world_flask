@@ -40,4 +40,4 @@ pipeline {
       echo "❌ 실패: nerdctl 설치 여부 및 권한 확인!"
     }
   }
-} // <--- pipeline 블록 닫는 중괄호
+}
