@@ -7,6 +7,8 @@ pipeline {
   IMAGE_FULL_NAME = "${IMAGE_NAME}:${IMAGE_TAG}"
   IMAGE_DIR_PATH = "${env.HOME}/page"
   IMAGE_TAR_PATH = "${IMAGE_DIR_PATH}/${IMAGE_NAME}.tar"
+  DEPLOYMENT_YAML = 'flask-deployment.yaml'
+  SERVICE_YAML = 'flask-service.yaml'
 }
 
   stages {
@@ -22,14 +24,26 @@ pipeline {
         """
       }
     }
-    stage('💾 Save image to 바탕화면') {
+    stage('💾 Save image to page') {
       steps {
         sh """
           mkdir -p "${IMAGE_DIR_PATH}"
           sudo nerdctl save -o "${IMAGE_TAR_PATH}" ${IMAGE_FULL_NAME}
         """
-      echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
+        echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
+      }
+    }
+    stage('🚀 Deploy to Kubernetes(dev)') {
+      steps {
+        // admin.conf를 Jenkins에 secret file credential로 등록했다고 가정 (ID: kube-admin-conf)
+        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+          sh """
+            export KUBECONFIG=$KUBECONFIG
+            kubectl apply -n dev -f ${DEPLOYMENT_YAML}
+            kubectl apply -n dev -f ${SERVICE_YAML}
+          """
+        }
+      }
+    }
   }
-}
-}
 }
