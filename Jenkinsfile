@@ -2,11 +2,12 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = 'flask-app'
-    IMAGE_TAG = 'latest'
-    IMAGE_FULL_NAME = "${IMAGE_NAME}:${IMAGE_TAG}"
-    IMAGE_TAR_PATH = "${env.HOME}/page/${IMAGE_NAME}.tar"
-  }
+  IMAGE_NAME = 'flask-app'
+  IMAGE_TAG = 'latest'
+  IMAGE_FULL_NAME = "${IMAGE_NAME}:${IMAGE_TAG}"
+  IMAGE_DIR_PATH = "${env.HOME}/page"
+  IMAGE_TAR_PATH = "${IMAGE_DIR_PATH}/${IMAGE_NAME}.tar"
+}
 
   stages {
     stage('📥 Clone repository') {
@@ -21,16 +22,15 @@ pipeline {
         """
       }
     }
-    stage('💾 Save image to 바탕화면') {
+    sstage('💾 Save image to 바탕화면') {
       steps {
         sh """
-          mkdir -p "${IMAGE_TAR_PATH%/*}"
+          mkdir -p "${IMAGE_DIR_PATH}"
           sudo nerdctl save -o "${IMAGE_TAR_PATH}" ${IMAGE_FULL_NAME}
         """
-        echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
-      }
-    }
-  } // <--- stages 블록 닫는 중괄호
+      echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
+  }
+}
 
   post {
     success {
