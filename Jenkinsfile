@@ -31,14 +31,5 @@ pipeline {
       echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
   }
 }
-
-  post {
-    success {
-      echo "🎉 이미지 빌드 및 바탕화면 저장 성공!"
-    }
-    failure {
-      echo "❌ 실패: nerdctl 설치 여부 및 권한 확인!"
-    }
-  }
 }
 }
