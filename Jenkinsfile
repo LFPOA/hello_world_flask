@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-  IMAGE_NAME = 'flask-app'
+  IMAGE_NAME = 'flask-k8s'
   IMAGE_TAG = 'latest'
   IMAGE_FULL_NAME = "${IMAGE_NAME}:${IMAGE_TAG}"
   IMAGE_DIR_PATH = "${env.HOME}/page"
