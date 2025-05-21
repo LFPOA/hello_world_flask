@@ -22,7 +22,7 @@ pipeline {
         """
       }
     }
-    sstage('💾 Save image to 바탕화면') {
+    stage('💾 Save image to 바탕화면') {
       steps {
         sh """
           mkdir -p "${IMAGE_DIR_PATH}"
@@ -40,4 +40,5 @@ pipeline {
       echo "❌ 실패: nerdctl 설치 여부 및 권한 확인!"
     }
   }
+}
 }
