@@ -17,22 +17,22 @@ pipeline {
         git url: 'https://github.com/LFPOA/hello_world_flask.git', branch: 'main'
       }
     }
-    stage('🐳 Build image with nerdctl') {
-      steps {
-        sh """
-          sudo nerdctl build -t ${IMAGE_FULL_NAME} .
-        """
-      }
-    }
-    stage('💾 Save image to page') {
-      steps {
-        sh """
-          mkdir -p "${IMAGE_DIR_PATH}"
-          sudo nerdctl save -o "${IMAGE_TAR_PATH}" ${IMAGE_FULL_NAME}
-        """
-        echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
-      }
-    }
+    //stage('🐳 Build image with nerdctl') {
+      //steps {
+        //sh """
+          //sudo nerdctl build -t ${IMAGE_FULL_NAME} .
+        //"""
+      //}
+    //}
+    //stage('💾 Save image to page') {
+      //steps {
+        //sh """
+          //mkdir -p "${IMAGE_DIR_PATH}"
+          //sudo nerdctl save -o "${IMAGE_TAR_PATH}" ${IMAGE_FULL_NAME}
+        //"""
+        //echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
+      //}
+    //}
     stage('🚀 Deploy to Kubernetes(dev)') {
       steps {
         // admin.conf를 Jenkins에 secret file credential로 등록했다고 가정 (ID: kube-admin-conf)
