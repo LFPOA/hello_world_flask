@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: flask-k8s:latest
+        image: m011009/my-flask-app:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
