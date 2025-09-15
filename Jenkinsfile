@@ -1,6 +1,14 @@
 pipeline {
   agent any
 
+  parameters {
+    choice(
+      name: 'ENV',
+      choices: ['dev', 'stage', 'prod'],
+      description: '배포 대상 K8s 네임스페이스(테스트용)'
+    )
+  }
+  
   environment {
   IMAGE_NAME = 'flask-k8s'
   IMAGE_TAG = 'latest'
