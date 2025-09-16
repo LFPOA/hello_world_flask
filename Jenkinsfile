@@ -47,8 +47,8 @@ pipeline {
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
           sh """
             export KUBECONFIG=$KUBECONFIG
-            kubectl apply -n dev -f ${DEPLOYMENT_YAML}
-            kubectl apply -n dev -f ${SERVICE_YAML}
+            kubectl apply -n ${params.ENV} -f ${DEPLOYMENT_YAML}
+            kubectl apply -n ${params.ENV} -f ${SERVICE_YAML}
           """
         }
       }
