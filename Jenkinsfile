@@ -41,7 +41,7 @@ pipeline {
         //echo "✅ 이미지가 저장됨: ${IMAGE_TAR_PATH}"
       //}
     //}
-    stage('🚀 Deploy to Kubernetes(dev)') {
+    stage('🚀 Deploy to Kubernetes(${params.ENV})') {
       steps {
         // admin.conf를 Jenkins에 secret file credential로 등록했다고 가정 (ID: kube-admin-conf)
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
